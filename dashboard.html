@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WasiSafe - Mi Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="app-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <a href="index.html" class="sidebar-brand">
+      <div class="logo-icon"><i class="fa-solid fa-shield-heart"></i></div>
+      WasiSafe
+    </a>
+
+    <div class="sidebar-section">Principal</div>
+    <ul class="sidebar-nav">
+      <li><a href="dashboard.html" class="active"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+      <li><a href="perfil-crear.html"><i class="fa-solid fa-user-plus"></i> Nuevo perfil</a></li>
+      <li>
+        <a href="#" onclick="scrollToScans()">
+          <i class="fa-solid fa-clock-rotate-left"></i> Historial escaneos
+          <span style="background:#EF4444;color:white;font-size:0.65rem;font-weight:700;padding:0.1rem 0.4rem;border-radius:100px;margin-left:auto;">4</span>
+        </a>
+      </li>
+    </ul>
+
+    <div class="sidebar-section">Herramientas</div>
+    <ul class="sidebar-nav">
+      <li><a href="#"><i class="fa-solid fa-qrcode"></i> Mis QR Codes</a></li>
+      <li><a href="#"><i class="fa-solid fa-bell"></i> Notificaciones</a></li>
+      <li><a href="#"><i class="fa-solid fa-map-location-dot"></i> Mapa de escaneos</a></li>
+      <li><a href="#"><i class="fa-solid fa-gear"></i> Configuración</a></li>
+    </ul>
+
+    <div class="sidebar-section">Cuenta</div>
+    <ul class="sidebar-nav">
+      <li><a href="#"><i class="fa-solid fa-crown" style="color:#F59E0B;"></i> Plan Familiar</a></li>
+      <li><a href="admin.html"><i class="fa-solid fa-shield"></i> Admin Panel</a></li>
+    </ul>
+
+    <div class="sidebar-bottom">
+      <div class="user-chip">
+        <div class="user-avatar">ML</div>
+        <div class="user-info">
+          <strong>María López</strong>
+          <small>Plan Familiar</small>
+        </div>
+      </div>
+      <a href="index.html" style="display:flex;align-items:center;gap:0.5rem;color:rgba(255,255,255,0.5);font-size:0.8rem;text-decoration:none;padding:0.5rem 0.75rem;margin-top:0.5rem;border-radius:8px;transition:all 0.15s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.5)'">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i> Cerrar sesión
+      </a>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <div>
+        <h1>Hola, María 👋</h1>
+        <p>Gestiona los perfiles de tu familia desde aquí</p>
+      </div>
+      <div style="display:flex;align-items:center;gap:0.75rem;">
+        <div style="position:relative;">
+          <button style="background:var(--gray-bg);border:1px solid var(--gray-200);border-radius:8px;padding:0.5rem 0.75rem;cursor:pointer;color:var(--gray-600);">
+            <i class="fa-solid fa-bell"></i>
+          </button>
+          <span class="notification-dot" style="position:absolute;top:4px;right:4px;"></span>
+        </div>
+        <a href="perfil-crear.html" class="btn btn-primary">
+          <i class="fa-solid fa-plus"></i> Nuevo perfil
+        </a>
+      </div>
+    </div>
+
+    <div class="page-body">
+
+      <!-- ALERT PLAN -->
+      <div class="alert alert-info" style="margin-bottom:1.5rem;">
+        <i class="fa-solid fa-crown"></i>
+        <span>Plan <strong>Familiar</strong>: Tienes 3 de 5 perfiles activos. <a href="#" style="color:#2563EB;font-weight:600;">Upgrade a Premium</a> para perfiles ilimitados.</span>
+      </div>
+
+      <!-- STATS -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Perfiles activos <i class="fa-solid fa-users"></i></div>
+          <div class="stat-value">3</div>
+          <div class="stat-change">↑ 2 este mes</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Escaneos totales <i class="fa-solid fa-qrcode"></i></div>
+          <div class="stat-value">4</div>
+          <div class="stat-change">↑ 1 hoy</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Alertas enviadas <i class="fa-solid fa-bell"></i></div>
+          <div class="stat-value">4</div>
+          <div class="stat-change text-sm" style="color:var(--green);">100% notificadas</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Tu plan <i class="fa-solid fa-crown"></i></div>
+          <div class="stat-value" style="font-size:1.25rem;color:var(--blue);">Familiar</div>
+          <div class="stat-change"><a href="#" style="color:var(--blue);font-size:0.75rem;">Ver beneficios →</a></div>
+        </div>
+      </div>
+
+      <!-- PROFILES -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+        <h2 style="font-size:1.1rem;font-weight:700;">Mis Perfiles</h2>
+        <a href="perfil-crear.html" class="btn btn-outline btn-sm">
+          <i class="fa-solid fa-plus"></i> Agregar
+        </a>
+      </div>
+
+      <div class="profiles-grid" id="profilesGrid">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- ADD PROFILE CARD -->
+      <div style="margin-top:1.25rem;">
+        <a href="perfil-crear.html" style="display:flex;align-items:center;justify-content:center;gap:0.75rem;background:white;border:2px dashed var(--gray-200);border-radius:16px;padding:2rem;text-decoration:none;color:var(--gray-400);font-size:0.875rem;font-weight:600;transition:all 0.2s;" onmouseover="this.style.borderColor='#2563EB';this.style.color='#2563EB'" onmouseout="this.style.borderColor='var(--gray-200)';this.style.color='var(--gray-400)'">
+          <i class="fa-solid fa-circle-plus" style="font-size:1.25rem;"></i>
+          Agregar nuevo perfil
+        </a>
+      </div>
+
+      <!-- SCAN HISTORY -->
+      <div style="margin-top:2.5rem;" id="historialSection">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+          <h2 style="font-size:1.1rem;font-weight:700;">Historial de Escaneos</h2>
+          <button class="btn btn-outline btn-sm" onclick="exportHistory()">
+            <i class="fa-solid fa-download"></i> Exportar
+          </button>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>Últimos escaneos registrados</h3>
+            <span style="font-size:0.8rem;color:var(--gray-400);">Últimos 30 días</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Perfil</th>
+                  <th>Fecha y hora</th>
+                  <th>Ubicación</th>
+                  <th>Dispositivo</th>
+                  <th>Estado</th>
+                </tr>
+              </thead>
+              <tbody id="scanHistory">
+                <!-- Rendered by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- QR CODES QUICK VIEW -->
+      <div style="margin-top:2.5rem;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+          <h2 style="font-size:1.1rem;font-weight:700;">Mis Códigos QR</h2>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;">
+          <div class="card" style="padding:1.5rem;text-align:center;">
+            <div style="font-size:2rem;margin-bottom:0.5rem;">👦</div>
+            <div style="font-weight:700;font-size:0.9rem;margin-bottom:0.25rem;">Sebastián López</div>
+            <div style="font-size:0.75rem;color:var(--gray-400);margin-bottom:1rem;">ABCD1234</div>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://wasisafe.pe/profile/ABCD1234&color=2563EB" alt="QR" style="width:100px;height:100px;border-radius:8px;margin:0 auto 1rem;display:block;" onerror="this.style.display='none'">
+            <div style="display:flex;gap:0.5rem;justify-content:center;">
+              <a href="perfil-publico.html?id=ABCD1234" class="btn btn-outline btn-sm" target="_blank">Ver</a>
+              <button class="btn btn-primary btn-sm" onclick="downloadQR('ABCD1234')">Descargar</button>
+            </div>
+          </div>
+          <div class="card" style="padding:1.5rem;text-align:center;">
+            <div style="font-size:2rem;margin-bottom:0.5rem;">👵</div>
+            <div style="font-weight:700;font-size:0.9rem;margin-bottom:0.25rem;">Rosa Mamani</div>
+            <div style="font-size:0.75rem;color:var(--gray-400);margin-bottom:1rem;">EFGH5678</div>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://wasisafe.pe/profile/EFGH5678&color=2563EB" alt="QR" style="width:100px;height:100px;border-radius:8px;margin:0 auto 1rem;display:block;" onerror="this.style.display='none'">
+            <div style="display:flex;gap:0.5rem;justify-content:center;">
+              <a href="perfil-publico.html?id=EFGH5678" class="btn btn-outline btn-sm" target="_blank">Ver</a>
+              <button class="btn btn-primary btn-sm" onclick="downloadQR('EFGH5678')">Descargar</button>
+            </div>
+          </div>
+          <div class="card" style="padding:1.5rem;text-align:center;">
+            <div style="font-size:2rem;margin-bottom:0.5rem;">🐕</div>
+            <div style="font-weight:700;font-size:0.9rem;margin-bottom:0.25rem;">Max</div>
+            <div style="font-size:0.75rem;color:var(--gray-400);margin-bottom:1rem;">IJKL9012</div>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://wasisafe.pe/profile/IJKL9012&color=2563EB" alt="QR" style="width:100px;height:100px;border-radius:8px;margin:0 auto 1rem;display:block;" onerror="this.style.display='none'">
+            <div style="display:flex;gap:0.5rem;justify-content:center;">
+              <a href="perfil-publico.html?id=IJKL9012" class="btn btn-outline btn-sm" target="_blank">Ver</a>
+              <button class="btn btn-primary btn-sm" onclick="downloadQR('IJKL9012')">Descargar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script src="js/app.js"></script>
+<script>
+function scrollToScans() {
+  document.getElementById('historialSection').scrollIntoView({ behavior: 'smooth' });
+}
+
+function exportHistory() {
+  showToast('Historial exportado a CSV');
+}
+</script>
+</body>
+</html>

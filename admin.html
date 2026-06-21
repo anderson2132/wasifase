@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WasiSafe - Panel de Administración</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="app-layout">
+
+  <!-- SIDEBAR ADMIN -->
+  <aside class="sidebar">
+    <a href="index.html" class="sidebar-brand">
+      <div class="logo-icon"><i class="fa-solid fa-shield-heart"></i></div>
+      WasiSafe
+      <span style="background:var(--red);color:white;font-size:0.6rem;font-weight:700;padding:0.1rem 0.4rem;border-radius:4px;margin-left:auto;">ADMIN</span>
+    </a>
+
+    <div class="sidebar-section">Panel Admin</div>
+    <ul class="sidebar-nav">
+      <li><a href="admin.html" class="active"><i class="fa-solid fa-chart-pie"></i> Métricas</a></li>
+      <li><a href="#" onclick="showSection('users')"><i class="fa-solid fa-users"></i> Usuarios</a></li>
+      <li><a href="#" onclick="showSection('subscriptions')"><i class="fa-solid fa-credit-card"></i> Suscripciones</a></li>
+      <li><a href="#" onclick="showSection('incidents')"><i class="fa-solid fa-triangle-exclamation"></i> Incidencias</a></li>
+      <li><a href="#" onclick="showSection('reports')"><i class="fa-solid fa-file-chart-column"></i> Reportes</a></li>
+    </ul>
+
+    <div class="sidebar-section">Sistema</div>
+    <ul class="sidebar-nav">
+      <li><a href="#"><i class="fa-solid fa-server"></i> Estado del sistema</a></li>
+      <li><a href="#"><i class="fa-solid fa-key"></i> API Keys</a></li>
+      <li><a href="#"><i class="fa-solid fa-envelope"></i> Email templates</a></li>
+    </ul>
+
+    <div class="sidebar-bottom">
+      <div class="user-chip">
+        <div class="user-avatar" style="background:var(--red);">AD</div>
+        <div class="user-info">
+          <strong>Admin</strong>
+          <small>Super Administrador</small>
+        </div>
+      </div>
+      <a href="dashboard.html" style="display:flex;align-items:center;gap:0.5rem;color:rgba(255,255,255,0.5);font-size:0.8rem;text-decoration:none;padding:0.5rem 0.75rem;margin-top:0.5rem;border-radius:8px;transition:all 0.15s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.5)'">
+        <i class="fa-solid fa-arrow-left"></i> Ir al Dashboard
+      </a>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <div>
+        <h1>Panel de Administración</h1>
+        <p>Gestión global de la plataforma WasiSafe · <span id="currentDate"></span></p>
+      </div>
+      <div style="display:flex;gap:0.75rem;align-items:center;">
+        <button class="btn btn-outline btn-sm" onclick="showToast('Reporte generado correctamente')">
+          <i class="fa-solid fa-download"></i> Exportar reporte
+        </button>
+        <div style="width:36px;height:36px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:0.85rem;">AD</div>
+      </div>
+    </div>
+
+    <div class="page-body">
+
+      <!-- METRICS SECTION -->
+      <div id="section-metrics">
+        <!-- KPI Cards -->
+        <div class="stats-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:2rem;">
+          <div class="stat-card">
+            <div class="stat-label">Usuarios totales <i class="fa-solid fa-users"></i></div>
+            <div class="stat-value">2,547</div>
+            <div class="stat-change">↑ 12% este mes</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Perfiles activos <i class="fa-solid fa-id-card"></i></div>
+            <div class="stat-value">6,893</div>
+            <div class="stat-change">↑ 8% este mes</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Escaneos hoy <i class="fa-solid fa-qrcode"></i></div>
+            <div class="stat-value">134</div>
+            <div class="stat-change">↑ 23% vs. ayer</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">MRR <i class="fa-solid fa-sack-dollar"></i></div>
+            <div class="stat-value">S/38.5K</div>
+            <div class="stat-change">↑ 18% vs. mes anterior</div>
+          </div>
+        </div>
+
+        <!-- Plans distribution + Recent activity -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:2rem;">
+
+          <!-- Suscripciones por plan -->
+          <div class="card">
+            <div class="card-header">
+              <h3>Distribución por Plan</h3>
+              <span style="font-size:0.8rem;color:var(--gray-400);">Junio 2026</span>
+            </div>
+            <div style="padding:1.5rem;">
+              <div style="display:flex;flex-direction:column;gap:1rem;">
+                <div>
+                  <div style="display:flex;justify-content:space-between;font-size:0.85rem;margin-bottom:0.375rem;">
+                    <span><span class="admin-badge badge-free">Gratuito</span></span>
+                    <span style="font-weight:700;">1,284 (50%)</span>
+                  </div>
+                  <div style="height:8px;background:var(--gray-100);border-radius:100px;">
+                    <div style="height:100%;width:50%;background:var(--gray-400);border-radius:100px;"></div>
+                  </div>
+                </div>
+                <div>
+                  <div style="display:flex;justify-content:space-between;font-size:0.85rem;margin-bottom:0.375rem;">
+                    <span><span class="admin-badge badge-familiar">Familiar</span></span>
+                    <span style="font-weight:700;">895 (35%)</span>
+                  </div>
+                  <div style="height:8px;background:var(--gray-100);border-radius:100px;">
+                    <div style="height:100%;width:35%;background:var(--blue);border-radius:100px;"></div>
+                  </div>
+                </div>
+                <div>
+                  <div style="display:flex;justify-content:space-between;font-size:0.85rem;margin-bottom:0.375rem;">
+                    <span><span class="admin-badge badge-premium">Premium</span></span>
+                    <span style="font-weight:700;">292 (11%)</span>
+                  </div>
+                  <div style="height:8px;background:var(--gray-100);border-radius:100px;">
+                    <div style="height:100%;width:11%;background:#7C3AED;border-radius:100px;"></div>
+                  </div>
+                </div>
+                <div>
+                  <div style="display:flex;justify-content:space-between;font-size:0.85rem;margin-bottom:0.375rem;">
+                    <span><span class="admin-badge badge-institucional">Institucional</span></span>
+                    <span style="font-weight:700;">76 (4%)</span>
+                  </div>
+                  <div style="height:8px;background:var(--gray-100);border-radius:100px;">
+                    <div style="height:100%;width:4%;background:#F59E0B;border-radius:100px;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Actividad reciente -->
+          <div class="card">
+            <div class="card-header">
+              <h3>Actividad Reciente</h3>
+            </div>
+            <div style="padding:0.5rem 0;">
+              <div style="padding:0.875rem 1.5rem;display:flex;align-items:flex-start;gap:0.75rem;border-bottom:1px solid var(--gray-100);">
+                <div style="width:32px;height:32px;border-radius:50%;background:#D1FAE5;display:flex;align-items:center;justify-content:center;color:#065F46;font-size:0.75rem;flex-shrink:0;"><i class="fa-solid fa-user-plus"></i></div>
+                <div>
+                  <div style="font-size:0.85rem;font-weight:600;">Nuevo usuario registrado</div>
+                  <div style="font-size:0.75rem;color:var(--gray-400);">roberto@gmail.com · hace 5 min</div>
+                </div>
+              </div>
+              <div style="padding:0.875rem 1.5rem;display:flex;align-items:flex-start;gap:0.75rem;border-bottom:1px solid var(--gray-100);">
+                <div style="width:32px;height:32px;border-radius:50%;background:#DBEAFE;display:flex;align-items:center;justify-content:center;color:#1D4ED8;font-size:0.75rem;flex-shrink:0;"><i class="fa-solid fa-qrcode"></i></div>
+                <div>
+                  <div style="font-size:0.85rem;font-weight:600;">QR escaneado · ABCD1234</div>
+                  <div style="font-size:0.75rem;color:var(--gray-400);">San Isidro, Lima · hace 14 min</div>
+                </div>
+              </div>
+              <div style="padding:0.875rem 1.5rem;display:flex;align-items:flex-start;gap:0.75rem;border-bottom:1px solid var(--gray-100);">
+                <div style="width:32px;height:32px;border-radius:50%;background:#EDE9FE;display:flex;align-items:center;justify-content:center;color:#5B21B6;font-size:0.75rem;flex-shrink:0;"><i class="fa-solid fa-crown"></i></div>
+                <div>
+                  <div style="font-size:0.85rem;font-weight:600;">Upgrade a Premium</div>
+                  <div style="font-size:0.75rem;color:var(--gray-400);">carlos@empresa.pe · hace 31 min</div>
+                </div>
+              </div>
+              <div style="padding:0.875rem 1.5rem;display:flex;align-items:flex-start;gap:0.75rem;border-bottom:1px solid var(--gray-100);">
+                <div style="width:32px;height:32px;border-radius:50%;background:#FEF3C7;display:flex;align-items:center;justify-content:center;color:#92400E;font-size:0.75rem;flex-shrink:0;"><i class="fa-solid fa-building"></i></div>
+                <div>
+                  <div style="font-size:0.85rem;font-weight:600;">Nueva suscripción Institucional</div>
+                  <div style="font-size:0.75rem;color:var(--gray-400);">Colegio San Antonio · hace 2h</div>
+                </div>
+              </div>
+              <div style="padding:0.875rem 1.5rem;display:flex;align-items:flex-start;gap:0.75rem;">
+                <div style="width:32px;height:32px;border-radius:50%;background:#FEE2E2;display:flex;align-items:center;justify-content:center;color:#991B1B;font-size:0.75rem;flex-shrink:0;"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                <div>
+                  <div style="font-size:0.85rem;font-weight:600;">Incidencia reportada</div>
+                  <div style="font-size:0.75rem;color:var(--gray-400);">Usuario no recibe notificaciones · hace 3h</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- USERS TABLE -->
+      <div class="card" style="margin-bottom:2rem;">
+        <div class="card-header">
+          <h3>Gestión de Usuarios</h3>
+          <div style="display:flex;gap:0.5rem;align-items:center;">
+            <input type="text" placeholder="Buscar usuario..." style="padding:0.4rem 0.75rem;font-size:0.8rem;border:1px solid var(--gray-200);border-radius:7px;width:200px;font-family:inherit;" oninput="filterUsers(this.value)">
+            <button class="btn btn-primary btn-sm" onclick="showToast('Invitación enviada')">
+              <i class="fa-solid fa-user-plus"></i> Invitar
+            </button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Usuario</th>
+                <th>Plan</th>
+                <th>Perfiles</th>
+                <th>Registro</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="adminUsersTable">
+              <!-- Rendered by JS -->
+            </tbody>
+          </table>
+        </div>
+        <div style="padding:1rem 1.5rem;border-top:1px solid var(--gray-100);display:flex;align-items:center;justify-content:space-between;">
+          <span style="font-size:0.8rem;color:var(--gray-400);">Mostrando 6 de 2,547 usuarios</span>
+          <div style="display:flex;gap:0.375rem;">
+            <button class="btn btn-outline btn-sm">← Anterior</button>
+            <button class="btn btn-primary btn-sm">Siguiente →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SYSTEM STATUS -->
+      <div class="card" style="margin-bottom:2rem;">
+        <div class="card-header">
+          <h3>Estado del Sistema</h3>
+          <span style="display:flex;align-items:center;gap:0.375rem;font-size:0.8rem;color:var(--green);font-weight:600;">
+            <span style="width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block;"></span>
+            Todos los sistemas operativos
+          </span>
+        </div>
+        <div style="padding:1.5rem;display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;">
+          <div style="text-align:center;padding:1rem;background:var(--gray-bg);border-radius:10px;">
+            <div style="font-size:1.25rem;margin-bottom:0.375rem;color:var(--green);"><i class="fa-solid fa-circle-check"></i></div>
+            <div style="font-size:0.8rem;font-weight:700;">API Gateway</div>
+            <div style="font-size:0.7rem;color:var(--green);">Operativo</div>
+          </div>
+          <div style="text-align:center;padding:1rem;background:var(--gray-bg);border-radius:10px;">
+            <div style="font-size:1.25rem;margin-bottom:0.375rem;color:var(--green);"><i class="fa-solid fa-circle-check"></i></div>
+            <div style="font-size:0.8rem;font-weight:700;">DynamoDB</div>
+            <div style="font-size:0.7rem;color:var(--green);">Operativo</div>
+          </div>
+          <div style="text-align:center;padding:1rem;background:var(--gray-bg);border-radius:10px;">
+            <div style="font-size:1.25rem;margin-bottom:0.375rem;color:var(--green);"><i class="fa-solid fa-circle-check"></i></div>
+            <div style="font-size:0.8rem;font-weight:700;">SNS Notificaciones</div>
+            <div style="font-size:0.7rem;color:var(--green);">Operativo</div>
+          </div>
+          <div style="text-align:center;padding:1rem;background:var(--gray-bg);border-radius:10px;">
+            <div style="font-size:1.25rem;margin-bottom:0.375rem;color:var(--yellow);"><i class="fa-solid fa-circle-exclamation"></i></div>
+            <div style="font-size:0.8rem;font-weight:700;">CloudFront CDN</div>
+            <div style="font-size:0.7rem;color:var(--yellow);">Latencia elevada</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script src="js/app.js"></script>
+<script>
+document.getElementById('currentDate').textContent = new Date().toLocaleDateString('es-PE', {
+  weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+});
+
+function showSection(section) {
+  showToast(`Sección "${section}" — en construcción en el demo`);
+}
+
+function filterUsers(query) {
+  const rows = document.querySelectorAll('#adminUsersTable tr');
+  rows.forEach(row => {
+    row.style.display = row.textContent.toLowerCase().includes(query.toLowerCase()) ? '' : 'none';
+  });
+}
+</script>
+</body>
+</html>

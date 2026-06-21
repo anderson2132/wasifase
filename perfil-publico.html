@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WasiSafe - Perfil de Emergencia</title>
+  <meta name="description" content="Perfil de identificación WasiSafe. Escanea el QR para contactar a los responsables.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="public-profile-page">
+
+  <!-- Alert: QR Escaneado (simula la notificación enviada) -->
+  <div class="scan-alert" style="max-width:400px;width:100%;margin-bottom:1rem;">
+    <i class="fa-solid fa-bell"></i>
+    La familia fue notificada de este escaneo
+  </div>
+
+  <div class="public-card">
+
+    <!-- Logo WasiSafe pequeño -->
+    <div style="display:flex;align-items:center;justify-content:center;gap:0.375rem;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--gray-200);">
+      <div style="width:22px;height:22px;background:var(--blue);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:10px;color:white;">
+        <i class="fa-solid fa-shield-heart"></i>
+      </div>
+      <span style="font-size:0.8rem;font-weight:800;color:var(--gray-500);">WASISAFE</span>
+      <span style="font-size:0.7rem;color:var(--gray-400);margin-left:0.25rem;">· Perfil de Emergencia</span>
+    </div>
+
+    <!-- Avatar -->
+    <div class="public-avatar" id="pub-photo">👦</div>
+
+    <!-- Name & Age -->
+    <div class="public-name" id="pub-name">Sebastián López</div>
+    <div class="public-age" id="pub-age">7 años</div>
+
+    <!-- Type chip -->
+    <div style="margin-bottom:1rem;">
+      <span class="info-chip type-child" id="pub-type">Hijo</span>
+    </div>
+
+    <!-- Medical chips -->
+    <div id="pub-allergies" style="margin-bottom:0.25rem;"></div>
+    <div id="pub-medical" style="margin-bottom:1rem;"></div>
+
+    <!-- Emergency contacts -->
+    <div class="contact-section">
+      <h4><i class="fa-solid fa-shield-heart" style="color:var(--blue);margin-right:0.3rem;"></i>Contacto de emergencia</h4>
+      <div id="pub-contacts">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+    <!-- Action buttons -->
+    <div class="action-buttons">
+      <a href="#" id="btn-whatsapp" class="btn btn-whatsapp">
+        <i class="fa-brands fa-whatsapp"></i> WhatsApp
+      </a>
+      <a href="#" id="btn-call" class="btn btn-call">
+        <i class="fa-solid fa-phone"></i> Llamar
+      </a>
+    </div>
+
+    <!-- Additional info -->
+    <div style="margin-top:1.25rem;padding:1rem;background:#FEF3C7;border-radius:10px;text-align:left;">
+      <div style="font-size:0.75rem;font-weight:700;color:#92400E;margin-bottom:0.375rem;">
+        <i class="fa-solid fa-triangle-exclamation"></i> Si encontraste a esta persona
+      </div>
+      <div style="font-size:0.8rem;color:#92400E;line-height:1.5;">
+        Por favor mantente en el lugar y contacta a los familiares. Si hay riesgo inmediato, llama al <strong>105 (PNP)</strong> o <strong>116 (SAMU)</strong>.
+      </div>
+    </div>
+
+    <!-- Timestamp -->
+    <div style="margin-top:1rem;font-size:0.72rem;color:var(--gray-400);text-align:center;" id="scanTimestamp">
+      Escaneado el <!-- filled by JS -->
+    </div>
+
+  </div>
+
+  <!-- Powered by -->
+  <div class="powered-by">
+    Protegido por <a href="index.html">WasiSafe</a> · Identificación digital segura para tu familia
+  </div>
+
+  <!-- Demo switcher -->
+  <div style="margin-top:1.5rem;background:white;border-radius:14px;padding:1rem 1.5rem;max-width:400px;width:100%;box-shadow:0 4px 16px rgba(0,0,0,0.06);">
+    <div style="font-size:0.75rem;font-weight:700;color:var(--gray-400);margin-bottom:0.75rem;text-align:center;text-transform:uppercase;letter-spacing:0.08em;">
+      <i class="fa-solid fa-flask"></i> Vista demo — Cambiar perfil
+    </div>
+    <div style="display:flex;gap:0.5rem;flex-wrap:wrap;justify-content:center;">
+      <button onclick="window.location.search='?id=ABCD1234'" class="btn btn-outline btn-sm">👦 Sebastián</button>
+      <button onclick="window.location.search='?id=EFGH5678'" class="btn btn-outline btn-sm">👵 Rosa</button>
+      <button onclick="window.location.search='?id=IJKL9012'" class="btn btn-outline btn-sm">🐕 Max</button>
+    </div>
+    <div style="text-align:center;margin-top:0.75rem;">
+      <a href="dashboard.html" style="font-size:0.8rem;color:var(--blue);font-weight:600;text-decoration:none;">
+        <i class="fa-solid fa-arrow-left"></i> Ir al Dashboard
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<script src="js/app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const now = new Date();
+  const options = { day: '2-digit', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+  const ts = document.getElementById('scanTimestamp');
+  if (ts) {
+    ts.textContent = `Escaneado el ${now.toLocaleDateString('es-PE', options)}`;
+  }
+});
+</script>
+</body>
+</html>
