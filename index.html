@@ -9,6 +9,115 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ── Animaciones de scroll ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ── Mockup flotante ── */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-14px); }
+    }
+    .phone-frame { animation: float 4s ease-in-out infinite; }
+
+    /* ── Steps con conector ── */
+    .steps-connector {
+      position: absolute;
+      top: 28px;
+      left: calc(16.66% + 28px);
+      right: calc(16.66% + 28px);
+      height: 2px;
+      background: linear-gradient(90deg, #2563EB 0%, #DBEAFE 50%, #2563EB 100%);
+      z-index: 0;
+    }
+    .step-card { position: relative; z-index: 1; }
+
+    /* ── Para quién ── */
+    .forwhom-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .forwhom-card {
+      background: white;
+      border: 1.5px solid var(--gray-200);
+      border-radius: 20px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      transition: all 0.25s;
+    }
+    .forwhom-card:hover {
+      border-color: var(--blue);
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(37,99,235,0.12);
+    }
+    .forwhom-emoji { font-size: 3rem; display: block; margin-bottom: 1rem; }
+    .forwhom-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .forwhom-card p { font-size: 0.85rem; color: var(--gray-500); line-height: 1.6; }
+
+    /* ── Testimonios ── */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .testimonial-card {
+      background: white;
+      border: 1.5px solid var(--gray-200);
+      border-radius: 20px;
+      padding: 2rem;
+      transition: all 0.2s;
+    }
+    .testimonial-card:hover { box-shadow: 0 12px 32px rgba(0,0,0,0.08); transform: translateY(-3px); }
+    .testimonial-stars { color: #F59E0B; font-size: 0.9rem; margin-bottom: 1rem; letter-spacing: 2px; }
+    .testimonial-text { font-size: 0.95rem; color: var(--gray-600); line-height: 1.7; margin-bottom: 1.5rem; font-style: italic; }
+    .testimonial-author { display: flex; align-items: center; gap: 0.75rem; }
+    .testimonial-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--blue-light); display: flex; align-items: center; justify-content: center; font-size: 1.25rem; }
+    .testimonial-author strong { display: block; font-size: 0.875rem; }
+    .testimonial-author span { font-size: 0.75rem; color: var(--gray-400); }
+
+    /* ── FAQ ── */
+    .faq-list { max-width: 740px; margin: 0 auto; }
+    .faq-item { border: 1.5px solid var(--gray-200); border-radius: 14px; margin-bottom: 0.75rem; overflow: hidden; transition: border-color 0.2s; }
+    .faq-item.open { border-color: var(--blue); }
+    .faq-question { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1.5rem; cursor: pointer; font-weight: 600; font-size: 0.95rem; background: white; user-select: none; }
+    .faq-question i { color: var(--blue); transition: transform 0.3s; flex-shrink: 0; margin-left: 1rem; }
+    .faq-item.open .faq-question i { transform: rotate(180deg); }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.2s; background: var(--gray-bg); font-size: 0.9rem; color: var(--gray-600); line-height: 1.7; padding: 0 1.5rem; }
+    .faq-item.open .faq-answer { max-height: 200px; padding: 1rem 1.5rem; }
+
+    /* ── Hamburger ── */
+    .hamburger { display: none; background: none; border: none; cursor: pointer; font-size: 1.4rem; color: var(--dark); padding: 0.25rem; }
+    .mobile-menu { display: none; position: fixed; top: 64px; left: 0; right: 0; background: white; border-bottom: 1px solid var(--gray-200); padding: 1rem 2rem; z-index: 99; flex-direction: column; gap: 0.5rem; box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { padding: 0.75rem 0; text-decoration: none; color: var(--gray-700); font-weight: 500; font-size: 0.95rem; border-bottom: 1px solid var(--gray-100); }
+    .mobile-menu a:last-child { border-bottom: none; }
+
+    /* ── Social footer ── */
+    .footer-social { display: flex; gap: 0.75rem; margin-top: 1.25rem; }
+    .footer-social a { width: 36px; height: 36px; background: rgba(255,255,255,0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.7); font-size: 0.9rem; text-decoration: none; transition: all 0.2s; }
+    .footer-social a:hover { background: var(--blue); color: white; }
+
+    @media (max-width: 768px) {
+      .hamburger { display: block; }
+      .forwhom-grid { grid-template-columns: repeat(2, 1fr); }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .steps-connector { display: none; }
+    }
+  </style>
 </head>
 <body>
 
@@ -20,37 +129,51 @@
   </a>
   <ul class="navbar-nav">
     <li><a href="#como-funciona">Cómo funciona</a></li>
+    <li><a href="#para-quien">Para quién</a></li>
     <li><a href="#caracteristicas">Características</a></li>
     <li><a href="#precios">Precios</a></li>
-    <li><a href="#">Blog</a></li>
+    <li><a href="#faq">FAQ</a></li>
   </ul>
   <div class="navbar-actions">
     <a href="login.html" class="btn btn-outline">Iniciar sesión</a>
     <a href="login.html#registro" class="btn btn-primary">Empezar gratis</a>
   </div>
+  <button class="hamburger" id="hamburgerBtn" aria-label="Menú">
+    <i class="fa-solid fa-bars"></i>
+  </button>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#como-funciona">Cómo funciona</a>
+  <a href="#para-quien">Para quién</a>
+  <a href="#caracteristicas">Características</a>
+  <a href="#precios">Precios</a>
+  <a href="#faq">FAQ</a>
+  <a href="login.html" style="color: var(--blue); font-weight: 700;">Iniciar sesión →</a>
+</div>
 
 <!-- HERO -->
 <section class="hero">
   <div class="hero-content">
     <div>
-      <div class="badge">
+      <div class="badge reveal">
         <i class="fa-solid fa-shield-heart"></i>
         Disponible en Perú · Latinoamérica
       </div>
-      <h1>Protege a quienes <span>más amas</span></h1>
-      <p>WasiSafe crea perfiles digitales protegidos con códigos QR para niños, adultos mayores, personas con discapacidad y mascotas. En caso de extravío, cualquier persona puede escanear el QR y contactar a los responsables al instante.</p>
-      <div class="hero-actions">
+      <h1 class="reveal reveal-delay-1">Protege a quienes <span>más amas</span></h1>
+      <p class="reveal reveal-delay-2">WasiSafe crea perfiles digitales protegidos con códigos QR para niños, adultos mayores, personas con discapacidad y mascotas. En caso de extravío, cualquier persona puede escanear el QR y contactar a los responsables al instante.</p>
+      <div class="hero-actions reveal reveal-delay-3">
         <a href="login.html" class="btn btn-primary btn-lg">
           <i class="fa-solid fa-shield-heart"></i>
           Crear perfil gratis
         </a>
         <a href="#como-funciona" class="btn btn-outline btn-lg">
           <i class="fa-solid fa-play"></i>
-          Ver demo
+          Ver cómo funciona
         </a>
       </div>
-      <div class="hero-stats">
+      <div class="hero-stats reveal reveal-delay-4">
         <div class="hero-stat">
           <strong>+2,500</strong>
           <span>Perfiles activos</span>
@@ -67,7 +190,7 @@
     </div>
 
     <!-- Phone Mockup -->
-    <div class="phone-mockup">
+    <div class="phone-mockup reveal reveal-delay-2">
       <div class="phone-frame">
         <div class="phone-screen">
           <div class="phone-notch"><span></span></div>
@@ -97,7 +220,6 @@
           </div>
         </div>
       </div>
-      <!-- Floating badge -->
       <div style="position: absolute; top: 20px; right: -20px; background: white; border-radius: 14px; padding: 0.75rem 1rem; box-shadow: 0 8px 24px rgba(0,0,0,0.12); font-size: 0.75rem;">
         <div style="font-weight: 700; color: #111827;">🔔 QR Escaneado</div>
         <div style="color: #6B7280;">San Isidro, Lima • Ahora</div>
@@ -110,27 +232,60 @@
   </div>
 </section>
 
+<!-- PARA QUIÉN -->
+<section class="section" id="para-quien">
+  <div class="container">
+    <div class="section-center reveal">
+      <span class="section-tag">¿Para quién?</span>
+      <h2>Una solución para toda tu familia</h2>
+      <p>WasiSafe se adapta a las necesidades de cada persona que quieres proteger.</p>
+    </div>
+    <div class="forwhom-grid">
+      <div class="forwhom-card reveal reveal-delay-1">
+        <span class="forwhom-emoji">👧</span>
+        <h3>Niños</h3>
+        <p>QR en mochilas, ropa o pulseras. Si se pierden en el parque, mall o colegio, cualquier adulto puede contactarte al instante.</p>
+      </div>
+      <div class="forwhom-card reveal reveal-delay-2">
+        <span class="forwhom-emoji">👴</span>
+        <h3>Adultos Mayores</h3>
+        <p>Ideal para personas con Alzheimer o demencia. Datos médicos visibles para auxiliadores y contacto directo con familiares.</p>
+      </div>
+      <div class="forwhom-card reveal reveal-delay-3">
+        <span class="forwhom-emoji">♿</span>
+        <h3>Personas con Discapacidad</h3>
+        <p>Perfil con información médica esencial, alergias y contactos de emergencia accesibles desde cualquier celular.</p>
+      </div>
+      <div class="forwhom-card reveal reveal-delay-4">
+        <span class="forwhom-emoji">🐕</span>
+        <h3>Mascotas</h3>
+        <p>QR en el collar con datos del dueño, vacunas y microchip. Si tu mascota se escapa, quien la encuentre puede contactarte de inmediato.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- PROBLEMA -->
 <section class="section bg-gray" id="problema">
   <div class="container">
-    <div class="section-center">
+    <div class="section-center reveal">
       <span class="section-tag">El Problema</span>
       <h2>Cuando alguien se extravía, cada segundo cuenta</h2>
       <p>Miles de familias en Perú enfrentan esta situación sin herramientas eficaces para actuar rápido.</p>
     </div>
     <div class="problem-grid">
-      <div class="problem-card">
-        <div class="problem-icon">😰</div>
+      <div class="problem-card reveal reveal-delay-1">
+        <div class="problem-icon"><i class="fa-solid fa-person-circle-question" style="color:#D97706;font-size:1.4rem;"></i></div>
         <h3>Sin mecanismo de contacto</h3>
         <p>Cuando un niño o adulto mayor se pierde, no hay forma rápida de identificar a los responsables o cómo contactarlos.</p>
       </div>
-      <div class="problem-card">
-        <div class="problem-icon">📄</div>
+      <div class="problem-card reveal reveal-delay-2">
+        <div class="problem-icon"><i class="fa-solid fa-id-card-clip" style="color:#D97706;font-size:1.4rem;"></i></div>
         <h3>Sin documentación visible</h3>
         <p>La mayoría de niños y adultos mayores no llevan identificación accesible o la información no está actualizada.</p>
       </div>
-      <div class="problem-card">
-        <div class="problem-icon">🔒</div>
+      <div class="problem-card reveal reveal-delay-3">
+        <div class="problem-icon"><i class="fa-solid fa-lock" style="color:#D97706;font-size:1.4rem;"></i></div>
         <h3>Riesgo de privacidad</h3>
         <p>Compartir dirección, DNI o datos del colegio directamente representa serios riesgos de seguridad para las familias.</p>
       </div>
@@ -141,23 +296,24 @@
 <!-- COMO FUNCIONA -->
 <section class="section" id="como-funciona">
   <div class="container">
-    <div class="section-center">
+    <div class="section-center reveal">
       <span class="section-tag">Cómo Funciona</span>
       <h2>Simple, rápido y seguro</h2>
       <p>En solo 3 pasos tu familia estará protegida ante cualquier situación de extravío.</p>
     </div>
     <div class="steps-grid">
-      <div class="step-card">
+      <div class="steps-connector"></div>
+      <div class="step-card reveal reveal-delay-1">
         <div class="step-number">1</div>
         <h3>Crea el perfil</h3>
         <p>Registra a tu hijo, adulto mayor o mascota con foto, información médica y contactos de emergencia. Solo toma 2 minutos.</p>
       </div>
-      <div class="step-card">
+      <div class="step-card reveal reveal-delay-2">
         <div class="step-number">2</div>
         <h3>Descarga el QR</h3>
         <p>WasiSafe genera automáticamente un código QR único. Imprímelo, ponlo en una pulsera, mochila, collar o ropa.</p>
       </div>
-      <div class="step-card">
+      <div class="step-card reveal reveal-delay-3">
         <div class="step-number">3</div>
         <h3>Recibe la alerta</h3>
         <p>Si alguien escanea el QR, recibes notificación inmediata por WhatsApp y email con la ubicación aproximada del escaneo.</p>
@@ -169,53 +325,53 @@
 <!-- CARACTERÍSTICAS -->
 <section class="section bg-gray" id="caracteristicas">
   <div class="container">
-    <div class="section-center">
+    <div class="section-center reveal">
       <span class="section-tag">Características</span>
       <h2>Todo lo que tu familia necesita</h2>
       <p>Una plataforma completa diseñada para proteger a las personas más vulnerables de tu hogar.</p>
     </div>
     <div class="features-grid">
-      <div class="feature-card">
+      <div class="feature-card reveal reveal-delay-1">
         <div class="feature-icon"><i class="fa-solid fa-qrcode"></i></div>
         <h3>QR Inteligente</h3>
         <p>Código único por perfil. Escaneable por cualquier celular sin necesidad de app. Funciona offline.</p>
       </div>
-      <div class="feature-card">
+      <div class="feature-card reveal reveal-delay-2">
         <div class="feature-icon"><i class="fa-solid fa-lock"></i></div>
         <h3>Privacidad Total</h3>
         <p>La vista pública nunca muestra dirección, DNI ni datos sensibles. Solo la información necesaria para contactarte.</p>
       </div>
-      <div class="feature-card">
+      <div class="feature-card reveal reveal-delay-3">
         <div class="feature-icon"><i class="fa-brands fa-whatsapp"></i></div>
         <h3>Alerta Instantánea</h3>
         <p>Al escanear el QR, recibes notificación en WhatsApp, email y push con fecha, hora y ubicación aproximada.</p>
       </div>
-      <div class="feature-card">
+      <div class="feature-card reveal reveal-delay-1">
         <div class="feature-icon"><i class="fa-solid fa-notes-medical"></i></div>
         <h3>Info Médica Segura</h3>
         <p>Guarda alergias, condiciones médicas y medicamentos importantes que auxiliadores deben conocer en emergencia.</p>
       </div>
-      <div class="feature-card">
+      <div class="feature-card reveal reveal-delay-2">
         <div class="feature-icon"><i class="fa-solid fa-users"></i></div>
         <h3>Gestión Familiar</h3>
         <p>Un solo dashboard para gestionar todos los perfiles de tu familia: hijos, adultos mayores, mascotas y más.</p>
       </div>
-      <div class="feature-card">
+      <div class="feature-card reveal reveal-delay-3">
         <div class="feature-icon"><i class="fa-solid fa-chart-line"></i></div>
         <h3>Historial de Escaneos</h3>
         <p>Consulta cuándo y dónde fue escaneado cada QR. Historial completo con mapa de ubicaciones.</p>
       </div>
-      <div class="feature-card">
+      <div class="feature-card reveal reveal-delay-1">
         <div class="feature-icon"><i class="fa-solid fa-mobile-screen"></i></div>
         <h3>Mobile First</h3>
         <p>Diseñado para funcionar perfectamente en celular. La persona que encuentra a tu familiar puede actuar de inmediato.</p>
       </div>
-      <div class="feature-card">
+      <div class="feature-card reveal reveal-delay-2">
         <div class="feature-icon"><i class="fa-solid fa-building-columns"></i></div>
         <h3>Plan Institucional</h3>
         <p>Diseñado para colegios, nidos y centros recreativos. Gestión masiva de perfiles para toda la institución.</p>
       </div>
-      <div class="feature-card">
+      <div class="feature-card reveal reveal-delay-3">
         <div class="feature-icon"><i class="fa-solid fa-brain"></i></div>
         <h3>IA (Próximamente)</h3>
         <p>Reconocimiento inteligente, alertas predictivas y detección de zonas de riesgo potenciadas por inteligencia artificial.</p>
@@ -224,17 +380,62 @@
   </div>
 </section>
 
-<!-- PRECIOS -->
-<section class="section" id="precios">
+<!-- TESTIMONIOS -->
+<section class="section" id="testimonios">
   <div class="container">
-    <div class="section-center">
+    <div class="section-center reveal">
+      <span class="section-tag">Testimonios</span>
+      <h2>Familias que confían en WasiSafe</h2>
+      <p>Más de 2,500 familias en Perú ya protegen a sus seres queridos con nosotros.</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal reveal-delay-1">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Mi hijo de 6 años se perdió en el Real Plaza. Una señora escaneó su QR de la mochila y me llamó en menos de 3 minutos. WasiSafe nos salvó."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">👩</div>
+          <div>
+            <strong>Carmen Ríos</strong>
+            <span>Mamá · Miraflores, Lima</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal reveal-delay-2">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Mi papá tiene Alzheimer. Con WasiSafe tengo paz mental sabiendo que si alguna vez se pierde, cualquier persona puede contactarme de inmediato."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">👨</div>
+          <div>
+            <strong>Luis Mendoza</strong>
+            <span>Hijo cuidador · San Borja, Lima</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal reveal-delay-3">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Usamos WasiSafe institucional para los 200 alumnos del nido. Los padres están tranquilos y nosotros tenemos todo centralizado en un solo panel."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">👩‍🏫</div>
+          <div>
+            <strong>Ana Torres</strong>
+            <span>Directora · Nido San Isidro</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRECIOS -->
+<section class="section bg-gray" id="precios">
+  <div class="container">
+    <div class="section-center reveal">
       <span class="section-tag">Precios</span>
       <h2>Un plan para cada familia</h2>
       <p>Empieza gratis y escala según las necesidades de tu familia o institución.</p>
     </div>
     <div class="pricing-grid">
-      <!-- Gratuito -->
-      <div class="pricing-card">
+      <div class="pricing-card reveal reveal-delay-1">
         <div class="pricing-plan">Gratuito</div>
         <div class="pricing-price"><sup>S/</sup>0<small>/mes</small></div>
         <div class="pricing-desc">Para familias que quieren comenzar a proteger a un ser querido.</div>
@@ -246,9 +447,7 @@
         </ul>
         <a href="login.html" class="btn btn-outline btn-full">Empezar gratis</a>
       </div>
-
-      <!-- Familiar - Featured -->
-      <div class="pricing-card featured">
+      <div class="pricing-card featured reveal reveal-delay-2">
         <div class="pricing-badge">Más popular</div>
         <div class="pricing-plan">Familiar</div>
         <div class="pricing-price"><sup>S/</sup>29<small>/mes</small></div>
@@ -263,9 +462,7 @@
         </ul>
         <a href="login.html" class="btn btn-white btn-full">Comenzar ahora</a>
       </div>
-
-      <!-- Premium -->
-      <div class="pricing-card">
+      <div class="pricing-card reveal reveal-delay-3">
         <div class="pricing-plan">Premium</div>
         <div class="pricing-price"><sup>S/</sup>59<small>/mes</small></div>
         <div class="pricing-desc">Para familias grandes o con necesidades avanzadas de protección.</div>
@@ -279,9 +476,7 @@
         </ul>
         <a href="login.html" class="btn btn-primary btn-full">Elegir Premium</a>
       </div>
-
-      <!-- Institucional -->
-      <div class="pricing-card">
+      <div class="pricing-card reveal reveal-delay-4">
         <div class="pricing-plan">Institucional</div>
         <div class="pricing-price" style="font-size: 1.75rem;">Cotizar</div>
         <div class="pricing-desc">Para colegios, nidos y centros recreativos con múltiples usuarios.</div>
@@ -299,9 +494,46 @@
   </div>
 </section>
 
+<!-- FAQ -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="section-center reveal">
+      <span class="section-tag">FAQ</span>
+      <h2>Preguntas frecuentes</h2>
+      <p>Todo lo que necesitas saber antes de empezar.</p>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item reveal reveal-delay-1">
+        <div class="faq-question">¿Necesito instalar una app para escanear el QR? <i class="fa-solid fa-chevron-down"></i></div>
+        <div class="faq-answer">No. Cualquier persona puede escanear el QR usando la cámara de su celular (iOS o Android) sin necesidad de descargar ninguna aplicación. El perfil se abre directamente en el navegador.</div>
+      </div>
+      <div class="faq-item reveal reveal-delay-2">
+        <div class="faq-question">¿Qué información ve quien escanea el QR? <i class="fa-solid fa-chevron-down"></i></div>
+        <div class="faq-answer">Solo ve el nombre, foto, edad, información médica básica y los botones de contacto (WhatsApp y llamada). Nunca se muestra la dirección del hogar, DNI ni datos sensibles de la familia.</div>
+      </div>
+      <div class="faq-item reveal reveal-delay-3">
+        <div class="faq-question">¿Cómo me notifican cuando escanean el QR? <i class="fa-solid fa-chevron-down"></i></div>
+        <div class="faq-answer">Recibes una notificación inmediata por WhatsApp y email con la fecha, hora y ubicación aproximada del escaneo basada en el dispositivo que escaneó.</div>
+      </div>
+      <div class="faq-item reveal reveal-delay-1">
+        <div class="faq-question">¿Puedo actualizar la información del perfil en cualquier momento? <i class="fa-solid fa-chevron-down"></i></div>
+        <div class="faq-answer">Sí, puedes editar el perfil cuando quieras desde tu dashboard. Los cambios se reflejan de inmediato en la vista pública del QR, sin necesidad de imprimir un nuevo código.</div>
+      </div>
+      <div class="faq-item reveal reveal-delay-2">
+        <div class="faq-question">¿WasiSafe funciona en todo Perú? <i class="fa-solid fa-chevron-down"></i></div>
+        <div class="faq-answer">Sí. WasiSafe funciona en todo Perú y Latinoamérica. Solo se necesita conexión a internet para escanear el QR. Estamos disponibles también en Colombia, Chile y México.</div>
+      </div>
+      <div class="faq-item reveal reveal-delay-3">
+        <div class="faq-question">¿Qué pasa si pierdo el acceso a mi cuenta? <i class="fa-solid fa-chevron-down"></i></div>
+        <div class="faq-answer">Puedes recuperar tu cuenta mediante tu email o tu cuenta de Google. Los QR generados siguen funcionando mientras la cuenta esté activa, independientemente del dispositivo que uses.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CTA FINAL -->
 <section style="background: linear-gradient(135deg, #1D4ED8 0%, #2563EB 100%); padding: 5rem 2rem; text-align: center; color: white;">
-  <div class="container">
+  <div class="container reveal">
     <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem;">Empieza hoy, es gratis</h2>
     <p style="font-size: 1.125rem; color: rgba(255,255,255,0.8); margin-bottom: 2rem; max-width: 560px; margin-left: auto; margin-right: auto; line-height: 1.7;">
       Más de 2,500 familias ya protegen a sus seres queridos con WasiSafe. Únete en menos de 2 minutos.
@@ -327,13 +559,20 @@
         WasiSafe
       </a>
       <p class="footer-brand-text">Identificación inteligente para proteger a las personas que más amas. Hecho con ❤️ en Perú para Latinoamérica.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+        <a href="#" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+      </div>
     </div>
     <div class="footer-col">
       <h4>Producto</h4>
       <ul>
-        <li><a href="#">Cómo funciona</a></li>
-        <li><a href="#">Características</a></li>
-        <li><a href="#">Precios</a></li>
+        <li><a href="#como-funciona">Cómo funciona</a></li>
+        <li><a href="#caracteristicas">Características</a></li>
+        <li><a href="#precios">Precios</a></li>
         <li><a href="#">Institucional</a></li>
         <li><a href="#">IA (próximo)</a></li>
       </ul>
@@ -365,5 +604,37 @@
 </footer>
 
 <script src="js/app.js"></script>
+<script>
+  // Animaciones de scroll con IntersectionObserver
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-question').forEach(q => {
+    q.addEventListener('click', () => {
+      const item = q.parentElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburgerBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+    hamburger.querySelector('i').className =
+      mobileMenu.classList.contains('open') ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      hamburger.querySelector('i').className = 'fa-solid fa-bars';
+    });
+  });
+</script>
 </body>
 </html>
